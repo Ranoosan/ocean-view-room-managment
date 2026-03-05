@@ -5,6 +5,17 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <!-- ===== Welcome File ===== -->
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- ===== Session Configuration ===== -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
     <!-- ===== Existing Product/Database Servlets ===== -->
     <servlet>
         <servlet-name>AddProductServlet</servlet-name>
@@ -61,32 +72,164 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
-    <!-- ===== Reservation/Room/Bill Servlets ===== -->
+    <!-- ===== RESERVATION SYSTEM SERVLETS ===== -->
+    
+    <!-- Add Reservation Servlet (Main reservation form) -->
     <servlet>
         <servlet-name>AddReservationServlet</servlet-name>
-        <servlet-class>controller.AddReservationServlet</servlet-class>
+        <servlet-class>rooms.controller.AddReservationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddReservationServlet</servlet-name>
         <url-pattern>/addReservation</url-pattern>
     </servlet-mapping>
 
+    <!-- View All Reservations Servlet -->
+    <servlet>
+        <servlet-name>ViewReservationsServlet</servlet-name>
+        <servlet-class>rooms.controller.ViewReservationsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewReservationsServlet</servlet-name>
+        <url-pattern>/viewReservations</url-pattern>
+    </servlet-mapping>
+
+    <!-- Check-In Servlet -->
+    <servlet>
+        <servlet-name>CheckInServlet</servlet-name>
+        <servlet-class>rooms.controller.CheckInServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckInServlet</servlet-name>
+        <url-pattern>/checkIn</url-pattern>
+    </servlet-mapping>
+
+    <!-- Check-Out Servlet -->
+    <servlet>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <servlet-class>rooms.controller.CheckOutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <url-pattern>/checkOut</url-pattern>
+    </servlet-mapping>
+
+    <!-- Room Management Servlet -->
     <servlet>
         <servlet-name>RoomServlet</servlet-name>
-        <servlet-class>controller.RoomServlet</servlet-class>
+        <servlet-class>rooms.controller.RoomServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RoomServlet</servlet-name>
         <url-pattern>/rooms</url-pattern>
     </servlet-mapping>
 
+    <!-- Bill Management Servlet -->
     <servlet>
         <servlet-name>BillServlet</servlet-name>
-        <servlet-class>controller.BillServlet</servlet-class>
+        <servlet-class>rooms.controller.BillServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>BillServlet</servlet-name>
         <url-pattern>/bills</url-pattern>
     </servlet-mapping>
+
+    <!-- View Bill Details Servlet -->
+    <servlet>
+        <servlet-name>ViewBillServlet</servlet-name>
+        <servlet-class>rooms.controller.ViewBillServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewBillServlet</servlet-name>
+        <url-pattern>/viewBill</url-pattern>
+    </servlet-mapping>
+
+    <!-- Cancel Reservation Servlet -->
+    <servlet>
+        <servlet-name>CancelReservationServlet</servlet-name>
+        <servlet-class>rooms.controller.CancelReservationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CancelReservationServlet</servlet-name>
+        <url-pattern>/cancelReservation</url-pattern>
+    </servlet-mapping>
+
+    <!-- ===== JSP PAGES CONFIGURATION ===== -->
+    <servlet>
+        <servlet-name>ReservationFormJSP</servlet-name>
+        <jsp-file>/reservationForm.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationFormJSP</servlet-name>
+        <url-pattern>/reservationForm</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReservationConfirmationJSP</servlet-name>
+        <jsp-file>/reservationConfirmation.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationConfirmationJSP</servlet-name>
+        <url-pattern>/reservationConfirmation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewReservationsJSP</servlet-name>
+        <jsp-file>/viewReservations.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewReservationsJSP</servlet-name>
+        <url-pattern>/viewReservationsPage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>BillDetailsJSP</servlet-name>
+        <jsp-file>/billDetails.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BillDetailsJSP</servlet-name>
+        <url-pattern>/billDetails</url-pattern>
+    </servlet-mapping>
+
+    <!-- ===== FILTERS ===== -->
+    <!-- Authentication Filter to protect pages -->
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>rooms.filter.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/addReservation</url-pattern>
+        <url-pattern>/viewReservations</url-pattern>
+        <url-pattern>/checkIn</url-pattern>
+        <url-pattern>/checkOut</url-pattern>
+        <url-pattern>/rooms</url-pattern>
+        <url-pattern>/bills</url-pattern>
+        <url-pattern>/viewBill</url-pattern>
+        <url-pattern>/reservationForm</url-pattern>
+        <url-pattern>/viewReservationsPage</url-pattern>
+        <url-pattern>/billDetails</url-pattern>
+    </filter-mapping>
+
+    <!-- ===== ERROR PAGES ===== -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error500.jsp</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.sql.SQLException</exception-type>
+        <location>/databaseError.jsp</location>
+    </error-page>
+
+    <!-- ===== LISTENERS ===== -->
+    <listener>
+        <listener-class>rooms.listener.AppContextListener</listener-class>
+    </listener>
 
 </web-app>
