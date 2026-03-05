@@ -63,14 +63,13 @@
 
     <!-- ===== Reservation/Room/Bill Servlets ===== -->
     <servlet>
-    <servlet-name>AddReservationServlet</servlet-name>
-    <servlet-class>controller.AddReservationServlet</servlet-class>
-</servlet>
-
-<servlet-mapping>
-    <servlet-name>AddReservationServlet</servlet-name>
-    <url-pattern>/addReservation</url-pattern>
-</servlet-mapping>
+        <servlet-name>AddReservationServlet</servlet-name>
+        <servlet-class>controller.AddReservationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddReservationServlet</servlet-name>
+        <url-pattern>/addReservation</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>RoomServlet</servlet-name>
@@ -80,8 +79,6 @@
         <servlet-name>RoomServlet</servlet-name>
         <url-pattern>/rooms</url-pattern>
     </servlet-mapping>
-    
-    
 
     <servlet>
         <servlet-name>BillServlet</servlet-name>
